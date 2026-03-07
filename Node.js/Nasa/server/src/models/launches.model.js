@@ -15,6 +15,10 @@ const launche = {
 
 launches.set(launche.flightNumber, launche)
 
+const existsLaunchWithId = (launcheId)=>{
+    return launches.has(launcheId)
+}
+
 const getAllLaunches = ()=>{
     return Array.from(launches.values())
 }
@@ -25,15 +29,24 @@ const addNewLaunche = (launche) =>{
         lastLaunchNumber, 
         Object.assign(launche, {
             success: true,
-            upcomingL: true,
+            upcoming: true,
             customers: ['Alireza', 'NASA'],
             flightNumber: lastLaunchNumber
         })
     )
 }
 
+const abortedLaunchById = (launcheId)=>{
+    const aborted = launches.get(launcheId)
+    aborted.success = false
+    aborted.upcoming = false
+    return aborted
+}
+
 module.exports = {
     launches,
     getAllLaunches,
-    addNewLaunche
+    addNewLaunche,
+    existsLaunchWithId,
+    abortedLaunchById
 }

@@ -1,3 +1,5 @@
+const launchesDatabase = require("./launches.mongo")
+
 const launches = new Map()
 
 let lastLaunchNumber = 100
@@ -15,18 +17,26 @@ const launche = {
 
 launches.set(launche.flightNumber, launche)
 
-const existsLaunchWithId = (launcheId)=>{
+const saveLaunch = async (launch) => {
+    await launchesDatabase.updateOne({
+        flightNumber: launch.flightNumber
+    }, launch, {
+        upsert: true
+    })
+}
+
+const existsLaunchWithId = (launcheId) => {
     return launches.has(launcheId)
 }
 
-const getAllLaunches = ()=>{
-    return Array.from(launches.values())
+const getAllLaunches = async () => {
+    return await launchesDatabase.find({}, { '_id': 0, '__v': 0 })
 }
 
-const addNewLaunche = (launche) =>{
-    lastLaunchNumber++ 
+const addNewLaunche = (launche) => {
+    lastLaunchNumber++
     launches.set(
-        lastLaunchNumber, 
+        lastLaunchNumber,
         Object.assign(launche, {
             success: true,
             upcoming: true,
@@ -36,12 +46,14 @@ const addNewLaunche = (launche) =>{
     )
 }
 
-const abortedLaunchById = (launcheId)=>{
+const abortedLaunchById = (launcheId) => {
     const aborted = launches.get(launcheId)
     aborted.success = false
     aborted.upcoming = false
     return aborted
 }
+
+saveLaunch(launche)
 
 module.exports = {
     launches,

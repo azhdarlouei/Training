@@ -1,8 +1,6 @@
 const launchesDatabase = require("./launches.mongo")
 const planets = require("./planets.mongo")
 
-const launches = new Map()
-
 const DEFAULT_FLIGHT_NUMBER = 100
 let lastLaunchNumber = 100
 
@@ -17,8 +15,6 @@ const launche = {
     success: true,
 }
 
-launches.set(launche.flightNumber, launche)
-
 const saveLaunch = async (launch) => {
     const planet = await planets.findOne({
         keplerName: launch.target
@@ -29,7 +25,7 @@ const saveLaunch = async (launch) => {
         ReadableStreamDefaultController
     }
 
-    await launchesDatabase.updateOne({
+    await launchesDatabase.findOneAndUpdate({
         flightNumber: launch.flightNumber
     }, launch, {
         upsert: true
@@ -37,7 +33,9 @@ const saveLaunch = async (launch) => {
 }
 
 const existsLaunchWithId = (launcheId) => {
-    return launches.has(launcheId)
+    return launchesDatabase.findOne({
+        flightNumber: launcheId
+    })
 }
 
 const getLastestFlightNumber = async () => {
@@ -69,17 +67,20 @@ const scheduleNewLaunch = async (launch) => {
     await saveLaunch(newLaunch)
 }
 
-const abortedLaunchById = (launcheId) => {
-    const aborted = launches.get(launcheId)
-    aborted.success = false
-    aborted.upcoming = false
-    return aborted
+const abortedLaunchById = async (launcheId) => {
+    const aborted = await launchesDatabase.updateOne({
+        flightNumber: launcheId
+    },{
+        upcoming: false,
+        success: false
+    })
+
+    return aborted.ok === 1 && aborted.nModified === 1
 }
 
 saveLaunch(launche)
 
 module.exports = {
-    launches,
     getAllLaunches,
     existsLaunchWithId,
     abortedLaunchById,

@@ -1,10 +1,10 @@
-const { launches, addNewLaunche, existsLaunchWithId, abortedLaunchById, getAllLaunches } = require("../../models/launches.model")
+const { launches, addNewLaunche, existsLaunchWithId, abortedLaunchById, getAllLaunches, scheduleNewLaunch } = require("../../models/launches.model")
 
-const httpGetAllLunches = async (req, res) => {
+const httpGetAllLaunches = async (req, res) => {
     return res.status(200).json(await getAllLaunches())
 }
 
-const httpAddNewLaunch = (req, res) => {
+const httpAddNewLaunch = async (req, res) => {
     const launch = req.body
 
     if (!launch.mission || !launch.rocket || !launch.launchDate || !launch.target) {
@@ -20,7 +20,7 @@ const httpAddNewLaunch = (req, res) => {
         })
     }
 
-    addNewLaunche(launch)
+    await scheduleNewLaunch(launch)
     return res.status(201).json(launch)
 }
 
@@ -37,7 +37,7 @@ const httpAbortLaunch = (req, res) => {
 }
 
 module.exports = {
-    httpGetAllLunches,
+    httpGetAllLaunches,
     httpAddNewLaunch,
     httpAbortLaunch
 }

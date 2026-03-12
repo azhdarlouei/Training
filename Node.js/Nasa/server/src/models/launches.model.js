@@ -24,7 +24,7 @@ const saveLaunch = async (launch) => {
         keplerName: launch.target
     })
 
-    if(!planet){
+    if (!planet) {
         console.log("No Matching planet found")
         ReadableStreamDefaultController
     }
@@ -40,12 +40,12 @@ const existsLaunchWithId = (launcheId) => {
     return launches.has(launcheId)
 }
 
-const getLastestFlightNumber = async ()=>{
+const getLastestFlightNumber = async () => {
     const lastestLaunch = await launchesDatabase
-    .findOne()
-    .sort('-flightNumber')
+        .findOne()
+        .sort('-flightNumber')
 
-    if(!lastLaunchNumber){
+    if (!lastLaunchNumber) {
         return DEFAULT_FLIGHT_NUMBER
     }
 
@@ -56,17 +56,17 @@ const getAllLaunches = async () => {
     return await launchesDatabase.find({}, { '_id': 0, '__v': 0 })
 }
 
-const addNewLaunche = (launche) => {
-    lastLaunchNumber++
-    launches.set(
-        lastLaunchNumber,
-        Object.assign(launche, {
-            success: true,
-            upcoming: true,
-            customers: ['Alireza', 'NASA'],
-            flightNumber: lastLaunchNumber
-        })
-    )
+const scheduleNewLaunch = async (launch) => {
+    const newFlightNumber = await getLastestFlightNumber() + 1
+
+    const newLaunch = Object.assign(launch,{
+        success: true,
+        upcoming: true,
+        customers: ['Alireza', 'NASA'],
+        flightNumber: Number(newFlightNumber)
+    })
+
+    await saveLaunch(newLaunch)
 }
 
 const abortedLaunchById = (launcheId) => {
@@ -81,7 +81,7 @@ saveLaunch(launche)
 module.exports = {
     launches,
     getAllLaunches,
-    addNewLaunche,
     existsLaunchWithId,
-    abortedLaunchById
+    abortedLaunchById,
+    scheduleNewLaunch
 }

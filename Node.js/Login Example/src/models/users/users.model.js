@@ -47,7 +47,7 @@ const userNameExist = async (user) => {
     try {
         const userName = await users.find({ userName: user }, { userId: 1, _id: 0 })
         if (userName.length > 0) {
-            return true
+            return userName
         } else {
             return false
         }

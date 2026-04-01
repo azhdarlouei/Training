@@ -40,6 +40,13 @@ const httpLogin = async (req, res)=>{
         })
     }
 
+    const userId = await userNameExist(user.userName).userId
+
+    req.session.user = {
+        userId: userId,
+        userName: user.userName
+    }
+
     return res.status(201).json({
         status: "ok"
     })

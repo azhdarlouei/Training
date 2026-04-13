@@ -1,9 +1,15 @@
 import express, { response } from 'express'
 import bcrypt from 'bcrypt'
+import session from 'express-session'
 
 const app = express()
 
 app.use(express.json())
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false
+}))
 
 const users = []
 
@@ -52,7 +58,13 @@ app.post('/login', async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, user.password)
 
         if(passwordMatch){
-            res.status(200).send('Logged in')
+            req.session.regenerate(error=>{
+                if(error){
+                    return res.status(200).send('Error regenerate session')
+                }
+                req.session.user = {userName: user.username}
+                res.status(200).send('Logged in')
+            })
         }else{
             res.status(401).send('Password incorrect')
         }

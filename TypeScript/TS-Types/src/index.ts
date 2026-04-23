@@ -58,3 +58,7 @@ let textBox: UIWidget = {
     drag: () => { },
     resize: () => { }
 }
+
+// literal types
+type Quantity = 50 | 100         // you only can use as 50 or 100
+type Metric = 'cm' | 'inch'      // you only can use as cm or inch

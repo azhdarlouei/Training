@@ -21,3 +21,17 @@ function calculateTax(income: number, taxYear = 2022): number {   // function ca
     return income * 1.3
 }                                                               /* If we dont have any type we dont need to add return in our function
 ...                                                                because our function type is Void                                  */
+
+// objects --- type aliases
+type Employee = {
+    readonly id: number,           // it's Read Only and you cant change this
+    name?: string,                 // it's Optional: if you want you can set that
+    retire: (date: Date) => void
+}
+let employee: Employee = {
+    id: 1,
+    name: "Alireza",
+    retire: (date: Date) => {
+        console.log(date)
+    }
+}

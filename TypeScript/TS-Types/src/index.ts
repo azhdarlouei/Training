@@ -35,3 +35,12 @@ let employee: Employee = {
         console.log(date)
     }
 }
+
+// union types
+function kgToLbs(weight: number | string) {  // you can use as many types
+    // Narrowing
+    if (typeof weight === 'number')
+        return weight * 2.2
+    else
+        return parseInt(weight) * 2.2
+}

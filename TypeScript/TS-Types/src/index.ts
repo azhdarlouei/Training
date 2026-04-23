@@ -96,3 +96,6 @@ let ride = {
     // falsy = (undefined, null, '', false, 0)
     speed: speed ?? 30
 }
+
+// type assertions
+let phone = <HTMLInputElement> document.getElementById('phone') // document.getElementById('phone') as HTMLInputElement

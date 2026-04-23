@@ -6,3 +6,6 @@ let level;                         //                           type is 'any'
 
 // arrays
 let numbers: number[] = [1, 2, 3]  // let numbers = [1, 2, 3]   type is Number
+
+// tuples
+let user: [number, string, boolean] = [1, "ALireza", true]

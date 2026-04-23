@@ -89,3 +89,10 @@ console.log(customer?.birthday?.getFullYear())     // ? = if(customer !== null &
 /* optional call */
 let log: any = null
 log?.('a')
+
+// the nullish coaelscing operator
+let speed: Number | null = null
+let ride = {
+    // falsy = (undefined, null, '', false, 0)
+    speed: speed ?? 30
+}

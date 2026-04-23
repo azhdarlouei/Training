@@ -62,3 +62,11 @@ let textBox: UIWidget = {
 // literal types
 type Quantity = 50 | 100         // you only can use as 50 or 100
 type Metric = 'cm' | 'inch'      // you only can use as cm or inch
+
+// nullable types
+function greet(name: string | null | undefined){
+    if(name)
+        console.log(name.toUpperCase())
+    else
+        console.log('Hola!')
+} // you can pass undifind and null to this function

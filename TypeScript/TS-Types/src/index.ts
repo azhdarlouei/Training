@@ -64,9 +64,28 @@ type Quantity = 50 | 100         // you only can use as 50 or 100
 type Metric = 'cm' | 'inch'      // you only can use as cm or inch
 
 // nullable types
-function greet(name: string | null | undefined){
-    if(name)
+function greet(name: string | null | undefined) {
+    if (name)
         console.log(name.toUpperCase())
     else
         console.log('Hola!')
 } // you can pass undifind and null to this function
+
+// optional chaining
+type Custumer = {
+    birthday?: Date
+}
+function getCustomer(id: number): Custumer | null | undefined {
+    return id === 0 ? null : { birthday: new Date() }
+}
+
+let customer = getCustomer(1)
+/* optional propery access operator */
+console.log(customer?.birthday?.getFullYear())     // ? = if(customer !== null && customer !== undefined)
+
+/* optional element access operator  
+   customer?.[0]                    */
+
+/* optional call */
+let log: any = null
+log?.('a')

@@ -9,3 +9,7 @@ let numbers: number[] = [1, 2, 3]  // let numbers = [1, 2, 3]   type is Number
 
 // tuples
 let user: [number, string, boolean] = [1, "ALireza", true]
+
+// enums
+enum Size { Small = 1, Medium, Large }  // const Size { Small = 1, Medium, Large }  'is better to use'
+let mySize: Size = Size.Medium          // console.log(mySize) => 2

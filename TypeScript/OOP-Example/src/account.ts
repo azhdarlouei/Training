@@ -1,7 +1,8 @@
 class Account {
-    id: number
+    readonly id: number // it's can't change out of class
     owner: string
     balance: number
+    nickName?: string   // it's optional
 
     constructor(id: number, owner: string, balance: number){
         this.id = id

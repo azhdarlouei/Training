@@ -15,11 +15,17 @@ class Account {
         this._balance += amount
     }
 
-    getBalance(): number { // a way for show private things
+    get balance(): number { // a way for show private things
         return this._balance
+    }
+    set balance(value: number){
+        if(value < 0)
+            throw new Error('Invalid value')
+        this._balance = value
     }
 }
 
 let account = new Account(1, "Alireza", 0)
 account.deposit(100)
-console.log(account.getBalance)
+console.log(account.balance)
+account.balance = 100

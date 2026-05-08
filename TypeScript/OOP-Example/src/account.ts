@@ -1,14 +1,13 @@
 class Account {
-    readonly id: number // it's can't change out of class
-    owner: string
-    private _balance: number // you can't see or change that out of class
+    // readonly id: number // it's can't change out of class
+    // owner: string
+    // private _balance: number // you can't see or change that out of class
     nickName?: string   // it's optional
 
-    constructor(id: number, owner: string, balance: number) {
-        this.id = id
-        this.owner = owner
-        this._balance = balance
-    }
+    constructor(
+        public readonly id: number,
+        public owner: string,
+        private _balance: number) { }
 
     deposit(amount: number): void {
         if (amount <= 0)

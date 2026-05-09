@@ -26,5 +26,13 @@ class Teacher extends Person {
     }
 }
 
-let teacher = new Teacher('Alireza', "Azhdarlouei")
-console.log(teacher.fullName)
+const printNames = (people: Person[])=>{
+    for (const person of people) {
+        console.log(person.fullName)
+    }
+}
+
+printNames([
+    new Student(123,"Alireza","Azhdarlouei"),
+    new Teacher("Ali","Teacher")
+])

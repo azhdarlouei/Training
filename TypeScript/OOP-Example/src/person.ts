@@ -5,7 +5,7 @@ class Person {
         return this.firstName + ' ' + this.lastName
     }
 
-    walk() {
+    protected walk() {    // if add protected you can call this in the childs but if add private you can't
         console.log('Walking')
     }
 }
@@ -16,6 +16,7 @@ class Student extends Person {
     }
 
     takeTest(){
+        this.walk()
         console.log('Taking a test')
     }
 }

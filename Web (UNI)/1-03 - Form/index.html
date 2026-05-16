@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ثبت‌نام وبینار</title>
+</head>
+<body>
+
+    <h2>فرم ثبت‌نام در وبینار</h2>
+
+    <form action="#" method="post">
+        <label>نام و نام خانوادگی:</label><br>
+        <input type="text" id="fullname" name="fullname" required><br><br>
+
+        <label for="email">ایمیل:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="mobile">شماره موبایل:</label><br>
+        <input type="tel" id="mobile" name="mobile" required><br><br>
+
+        <label for="password">رمز عبور:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label>جنسیت:</label><br>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">آقا</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">خانم</label><br><br>
+
+        <label>علاقه‌مندی‌ها:</label><br>
+        <input type="checkbox" id="tech" name="interests" value="tech">
+        <label for="tech">تکنولوژی</label><br>
+        <input type="checkbox" id="art" name="interests" value="art">
+        <label for="art">هنر</label><br>
+        <input type="checkbox" id="business" name="interests" value="business">
+        <label for="business">کسب‌وکار</label><br><br>
+
+        <label for="description">توضیحات:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+
+        <label>تصویر پروفایل (نمایشی):</label><br>
+        <input type="file" id="profilePic" name="profilePic"><br>
+        <img id="imagePreview" src="" alt="پیش‌نمایش"><br><br>
+
+        <button type="submit">ارسال اطلاعات</button>
+    </form>
+
+    <hr>
+
+    <a href="contact.html">تماس با ما</a>
+
+    <hr>
+
+    <h3>لیست وبینارها</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>عنوان وبینار</th>
+                <th>تاریخ برگزاری</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>آشنایی با هوش مصنوعی</td>
+                <td>۱۴۰۳/۰۸/۱۰</td>
+            </tr>
+            <tr>
+                <td>اصول طراحی وب</td>
+                <td>۱۴۰۳/۰۸/۱۵</td>
+            </tr>
+            <tr>
+                <td>مدیریت پروژه</td>
+                <td>۱۴۰۳/۰۸/۲۰</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

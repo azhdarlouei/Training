@@ -50,20 +50,35 @@ const getCourse = async () => {
         //     author: "Alireza",
         //     isPublished: true
         // })
-        .find({
-            $eq: 900
-        })
-        .limit(10)
-        .sort({
-            name: 1
-        })
-        .select({
-            name: 1,
-            tags: 1,
-            price: 1
-        })
+        // .find({
+        //     $eq: 900
+        // })
+        // .limit(10)
+        // .sort({
+        //     name: 1
+        // })
+        // .select({
+        //     name: 1,
+        //     tags: 1,
+        //     price: 1
+        // })
+
+        // Start With
+        // .find({
+        //     author: /^ALi/i, // i = case-insensitivity
+        // })
+
+        // End With
+        // .find({
+        //     author: /Reza$/i
+        // })
+
+        // Contains
+        // .find({
+        //     author: /.*ire.*/i
+        // })
 
     console.log(courses)
 }
 
-// getCourse()
+getCourse()

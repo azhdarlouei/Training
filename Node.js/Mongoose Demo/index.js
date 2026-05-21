@@ -46,39 +46,59 @@ const getCourse = async () => {
     // nin (not in)
 
     const courses = await Course
-        // .find({
-        //     author: "Alireza",
-        //     isPublished: true
-        // })
-        // .find({
-        //     $eq: 900
-        // })
-        // .limit(10)
-        // .sort({
-        //     name: 1
-        // })
-        // .select({
-        //     name: 1,
-        //     tags: 1,
-        //     price: 1
-        // })
+    // .find({
+    //     author: "Alireza",
+    //     isPublished: true
+    // })
+    // .find({
+    //     $eq: 900
+    // })
+    // .limit(10)
+    // .sort({
+    //     name: 1
+    // })
+    // .select({
+    //     name: 1,
+    //     tags: 1,
+    //     price: 1
+    // })
 
-        // Start With
-        // .find({
-        //     author: /^ALi/i, // i = case-insensitivity
-        // })
+    // Start With
+    // .find({
+    //     author: /^ALi/i, // i = case-insensitivity
+    // })
 
-        // End With
-        // .find({
-        //     author: /Reza$/i
-        // })
+    // End With
+    // .find({
+    //     author: /Reza$/i
+    // })
 
-        // Contains
-        // .find({
-        //     author: /.*ire.*/i
-        // })
+    // Contains
+    // .find({
+    //     author: /.*ire.*/i
+    // })
 
     console.log(courses)
 }
 
-getCourse()
+// getCourse()
+
+
+const updateCourse = async (id) => {
+    const course = await Course.findById(id)
+
+    if (!course) return
+
+    course.author = "Alireza Azhdarlouei"
+    course.isPublished = false
+
+    // course.set({
+    //     author: "Alireza Azhdarlouei",
+    //     isPublished: false
+    // })
+
+    const result = await course.save()
+    console.log(result)
+}
+
+updateCourse('6a0a10b72c36bb206aa23fa2')

@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 const app = express()
 
@@ -10,7 +11,7 @@ app.set('views', 'views')
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -18,6 +19,12 @@ app.use('/admin', adminRoutes)
 app.use('/', shopRoutes)
 
 
-app.listen(3000, () => {
-    console.log('Running on port 3000....')
-})
+mongoose.connect('mongodb://localhost/Shop')
+    .then(result => {
+        app.listen(3000, () => {
+            console.log('Listening on port 3000')
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })

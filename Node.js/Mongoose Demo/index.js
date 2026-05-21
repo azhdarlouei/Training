@@ -85,20 +85,29 @@ const getCourse = async () => {
 
 
 const updateCourse = async (id) => {
-    const course = await Course.findById(id)
+    // const course = await Course.findById(id)
 
-    if (!course) return
+    // if (!course) return
 
-    course.author = "Alireza Azhdarlouei"
-    course.isPublished = false
+    // course.author = "Alireza Azhdarlouei"
+    // course.isPublished = false
 
-    // course.set({
-    //     author: "Alireza Azhdarlouei",
-    //     isPublished: false
-    // })
+    // // course.set({
+    // //     author: "Alireza Azhdarlouei",
+    // //     isPublished: false
+    // // })
 
-    const result = await course.save()
-    console.log(result)
+    // const result = await course.save()
+    // console.log(result)
+
+    const course = await Course.findByIdAndUpdate({ _id: id }, {
+        $set: {
+            author: "ali",
+            isPublished: false
+        }
+    },{new: true})
+
+    console.log(course)
 }
 
 updateCourse('6a0a10b72c36bb206aa23fa2')

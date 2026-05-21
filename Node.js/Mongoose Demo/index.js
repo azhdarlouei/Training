@@ -16,7 +16,15 @@ const courseSchema = new mongoose.Schema({
         enum: ['web', 'mobile', 'design', 'desktop']
     },
     author: String,
-    tags: [String],
+    tags: {
+        type: Array,
+        validate: {
+            validator: (v) => {
+                return v && v.length > 0
+            },
+            message: "at least one tag needed...!"
+        }
+    },
     date: {
         type: Date,
         default: Date.now

@@ -5,15 +5,31 @@ mongoose.connect('mongodb://localhost/firstDB')
     .catch((err => console.log(err)))
 
 const courseSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        minlength: 5,
+        maxlength: 255
+    },
+    category: {
+        type: String,
+        enum: ['web', 'mobile', 'design', 'desktop']
+    },
     author: String,
     tags: [String],
     date: {
         type: Date,
         default: Date.now
     },
-    isPublished: Boolean
-})
+    isPublished: Boolean,
+    price: {
+        type: Number,
+        required: () => {
+            return this.isPublished
+        }
+    }
+}
+)
 
 const Course = mongoose.model('Course', courseSchema)
 
@@ -120,4 +136,4 @@ const removeCourse = async (id) => {
     console.log(result)
 }
 
-removeCourse('6a0a10b72c36bb206aa23fa2')
+// removeCourse('6a0a10b72c36bb206aa23fa2')

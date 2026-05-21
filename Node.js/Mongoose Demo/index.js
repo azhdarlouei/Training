@@ -105,9 +105,19 @@ const updateCourse = async (id) => {
             author: "ali",
             isPublished: false
         }
-    },{new: true})
+    }, { new: true })
 
     console.log(course)
 }
 
-updateCourse('6a0a10b72c36bb206aa23fa2')
+// updateCourse('6a0a10b72c36bb206aa23fa2')
+
+
+const removeCourse = async (id) => {
+    // const result = await Course.deleteOne({_id: id})
+    const result = await Course.deleteMany({ isPublished: true })
+
+    console.log(result)
+}
+
+removeCourse('6a0a10b72c36bb206aa23fa2')

@@ -1,5 +1,16 @@
 const Product = require('../models/product')
 
+exports.getAllProduct = (req, res) => {
+    Product.find()
+        .then(products=>{
+            res.render('shop/all-products',{
+                path: '/products',
+                pageTitle: 'Products',
+                products: products
+            })
+        })
+}
+
 exports.getIndex = (req, res) => {
     Product.find()
         .then(products => {

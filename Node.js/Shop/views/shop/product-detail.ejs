@@ -1,0 +1,23 @@
+<%- include('../includes/head.ejs') %>
+
+<%- include('../includes/heading.ejs') %>
+
+<%- include('../includes/navigation.ejs') %>
+
+<main>
+    <div class="container">
+        <div class="centered">
+            <div class="card">
+                <h2 class="card-header"><%= product.title %></h2>
+                <div class="card-body">
+                    <img src="<%= product.imageUrl %>" alt="">
+                    <div class="text-center">
+                        <h4 class="card-text"><%= product.description %></h4>
+                        <h3><%= product.price %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../includes/end.ejs') %>

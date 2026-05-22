@@ -19,7 +19,6 @@ exports.getProduct = (req, res) => {
 
     Product.findById(id)
         .then(product => {
-            console.log(product)
             res.render('shop/product-detail', {
                 pageTitle: 'Product Detail',
                 path: '/product-detail',

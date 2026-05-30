@@ -7,5 +7,7 @@ const router = express.Router()
 router.get('/', shopController.getIndex)
 router.get('/products/:productId', shopController.getProduct)
 router.get('/products',shopController.getAllProduct)
+router.post('/cart', shopController.postCart)
+router.get('/cart', shopController.getCart)
 
 module.exports = router

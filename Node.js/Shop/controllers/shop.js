@@ -38,3 +38,23 @@ exports.getProduct = (req, res) => {
         })
 
 }
+
+exports.postCart = (req,res)=>{
+    const id = req.body.productId
+
+    Product.findById(id)
+        .then(product=>{
+            req.user.addToCart(product)
+            res.redirect('/')
+        })
+}
+
+exports.getCart = async(req, res)=>{
+    const user = await req.user.populate('cart.items.productId')
+
+    res.render('shop/cart',{
+        pageTitle: 'Cart',
+        path: '/cart',
+        products: user.cart.items
+    })
+}

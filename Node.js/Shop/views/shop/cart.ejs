@@ -24,6 +24,12 @@
   <% }else{ %>
   <h1>سبد خرید خالی است</h1>
   <% } %>
+
+  <div class="row container centered">
+    <form action="/create-order" method="post">
+      <button type="submit" class="btn btn-primary">خرید</button>
+    </form>
+  </div>
 </main>
 
 <%- include('../includes/end.ejs') %>

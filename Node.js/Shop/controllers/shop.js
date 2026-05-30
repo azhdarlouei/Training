@@ -2,8 +2,8 @@ const Product = require('../models/product')
 
 exports.getAllProduct = (req, res) => {
     Product.find()
-        .then(products=>{
-            res.render('shop/all-products',{
+        .then(products => {
+            res.render('shop/all-products', {
                 path: '/products',
                 pageTitle: 'Products',
                 products: products
@@ -39,22 +39,34 @@ exports.getProduct = (req, res) => {
 
 }
 
-exports.postCart = (req,res)=>{
+exports.postCart = (req, res) => {
     const id = req.body.productId
 
     Product.findById(id)
-        .then(product=>{
+        .then(product => {
             req.user.addToCart(product)
             res.redirect('/')
         })
 }
 
-exports.getCart = async(req, res)=>{
+exports.getCart = async (req, res) => {
     const user = await req.user.populate('cart.items.productId')
 
-    res.render('shop/cart',{
+    res.render('shop/cart', {
         pageTitle: 'Cart',
         path: '/cart',
         products: user.cart.items
     })
+}
+
+exports.postCartDeleteProduct = (req, res) => {
+    const id = req.body.productId
+
+    req.user.removeFromCart(id)
+        .then(result => {
+            res.redirect('/cart')
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }

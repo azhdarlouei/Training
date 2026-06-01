@@ -1,0 +1,26 @@
+<%- include('../includes/head.ejs') %>
+
+<%- include('../includes/heading.ejs') %>
+
+<%- include('../includes/navigation.ejs') %>
+
+<main>
+  <% if(orders.length <= 0){ %>
+  <h2>سفارشی ثبت نشده</h2>
+  <% }else{ %>
+  <ul class="orders">
+    <% orders.forEach(order=>{ %>
+    <li class="orders_item">
+      <h1>سفارش <%= order._id %></h1>
+      <ul class="orders_product">
+        <% order.products.forEach(p=>{ %>
+        <li class="orders_product_item"><%= p.products.title %> (<%= p.quantity %>)</li>
+        <% }) %>
+      </ul>
+    </li>
+    <% }) %>
+  </ul>
+  <% } %>
+</main>
+
+<%- include('../includes/end.ejs') %>

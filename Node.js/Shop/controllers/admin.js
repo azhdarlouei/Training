@@ -7,7 +7,8 @@ exports.getProducts = (req, res) => {
                 res.render('admin/products', {
                     products: products,
                     pageTitle: 'Admin Products',
-                    path: '/admin/products'
+                    path: '/admin/products',
+                    isAuthenticated: req.isLoggedIn
                 })
             })
 }
@@ -16,7 +17,8 @@ exports.getAddProduct = (req, res) => {
     res.render('admin/add-product', {
         path: '/admin/add-product',
         pageTitle: 'Add Product',
-        editing: false
+        editing: false,
+        isAuthenticated: req.isLoggedIn
     })
 }
 
@@ -57,7 +59,9 @@ exports.getEditProduct = (req, res) => {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit-product',
                 editing: editMode,
-                product: product
+                product: product,
+                isAuthenticated: req.isLoggedIn
+
             })
         })
         .catch(err => {

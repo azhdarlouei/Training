@@ -7,7 +7,8 @@ exports.getAllProduct = (req, res) => {
             res.render('shop/all-products', {
                 path: '/products',
                 pageTitle: 'Products',
-                products: products
+                products: products,
+                isAuthenticated: req.isLoggedIn
             })
         })
 }
@@ -18,7 +19,8 @@ exports.getIndex = (req, res) => {
             res.render('shop/index', {
                 pageTitle: 'Shop',
                 path: '/',
-                products: products
+                products: products,
+                isAuthenticated: req.isLoggedIn
             })
         })
         .catch(err => {
@@ -34,7 +36,9 @@ exports.getProduct = (req, res) => {
             res.render('shop/product-detail', {
                 pageTitle: 'Product Detail',
                 path: '/product-detail',
-                product: product
+                product: product,
+                isAuthenticated: req.isLoggedIn
+
             })
         })
 
@@ -56,7 +60,9 @@ exports.getCart = async (req, res) => {
     res.render('shop/cart', {
         pageTitle: 'Cart',
         path: '/cart',
-        products: user.cart.items
+        products: user.cart.items,
+        isAuthenticated: req.isLoggedIn
+
     })
 }
 
@@ -101,15 +107,17 @@ exports.postOrder = (req, res) => {
 }
 
 exports.getOrders = (req, res) => {
-    Order.find({'user.userId': req.user._id})
+    Order.find({ 'user.userId': req.user._id })
         .then(orders => {
             res.render('shop/orders', {
                 pageTitle: 'Orders',
                 path: '/orders',
-                orders: orders
+                orders: orders,
+                isAuthenticated: req.isLoggedIn
+
             })
         })
-        .catch(err=>{
+        .catch(err => {
             console.log(err)
         })
 }

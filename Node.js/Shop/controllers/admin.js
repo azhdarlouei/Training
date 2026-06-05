@@ -1,6 +1,9 @@
 const Product = require('../models/product')
+const parsCookies = require('../util/cookieparseer')
 
 exports.getProducts = (req, res) => {
+    const isLoggedIn = parsCookies(req)
+
     Product.find()
         .then(
             products => {
@@ -8,21 +11,25 @@ exports.getProducts = (req, res) => {
                     products: products,
                     pageTitle: 'Admin Products',
                     path: '/admin/products',
-                    isAuthenticated: req.isLoggedIn
+                    isAuthenticated: isLoggedIn['loggedIn']
                 })
             })
 }
 
 exports.getAddProduct = (req, res) => {
+    const isLoggedIn = parsCookies(req)
+
     res.render('admin/add-product', {
         path: '/admin/add-product',
         pageTitle: 'Add Product',
         editing: false,
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: isLoggedIn['loggedIn']
     })
 }
 
 exports.postAddProduct = (req, res) => {
+    const isLoggedIn = parsCookies(req)
+
     const title = req.body.title
     const imageUrl = req.body.imageUrl
     const price = req.body.price
@@ -43,6 +50,8 @@ exports.postAddProduct = (req, res) => {
 }
 
 exports.getEditProduct = (req, res) => {
+    const isLoggedIn = parsCookies(req)
+
     const editMode = req.query.edit
 
     if (!editMode)
@@ -60,7 +69,7 @@ exports.getEditProduct = (req, res) => {
                 path: '/admin/edit-product',
                 editing: editMode,
                 product: product,
-                isAuthenticated: req.isLoggedIn
+                isAuthenticated: isLoggedIn['loggedIn']
 
             })
         })
@@ -91,6 +100,8 @@ exports.postEditProduct = (req, res) => {
 }
 
 exports.getDeletePost = (req, res) => {
+    const isLoggedIn = parsCookies(req)
+
     const id = req.params.productId
     Product.findByIdAndDelete(id)
         .then(result => {

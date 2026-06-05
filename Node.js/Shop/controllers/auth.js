@@ -1,8 +1,13 @@
+const parsCookies = require('../util/cookieparseer')
+
 exports.getLogin = (req, res) => {
+    const isLoggedIn = parsCookies(req)
+
+
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        isAuthenticated: req.isLoggedIn
+        isAuthenticated: isLoggedIn['loggedIn']
     })
 }
 

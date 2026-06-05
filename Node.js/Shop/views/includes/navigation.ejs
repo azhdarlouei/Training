@@ -24,8 +24,17 @@
     </ul>
   </div>
   <ul class="navbar-nav">
+    <% if(!isAuthenticated){ %>
     <li class="nav-item">
-      <a class="nav-link" href="/login">ورود</a>
+      <a class="nav-link btn btn-outline-primary" href="/login">ورود</a>
     </li>
+    <% } else{ %>
+    <li>
+      <form action="/logout" method="post">
+        <button class="nav-link btn btn-outline-danger" type="submit">خروج</button>
+      </form>
+    </li>
+    <% } %>
+    <span style="width: 10px;"></span>
   </ul>
 </nav>

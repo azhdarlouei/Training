@@ -52,20 +52,6 @@ app.use(authRoutes)
 
 mongoose.connect(MongoDB_URI)
     .then(result => {
-        User.findOne()
-            .then(user => {
-                if (!user) {
-                    const user = new User({
-                        name: "Alireza",
-                        email: "alireza@gmail.com",
-                        cart: {
-                            items: []
-                        }
-                    })
-                    user.save()
-                }
-            })
-
         app.listen(3000, () => {
             console.log('Listening on port 3000')
         })

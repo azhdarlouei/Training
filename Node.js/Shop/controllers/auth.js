@@ -9,6 +9,7 @@ exports.getLogin = (req, res) => {
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
+        errorMessage: req.flash('error')
     })
 }
 
@@ -18,7 +19,10 @@ exports.postLogin = (req, res) => {
 
     User.findOne({ email: email })
         .then(user => {
-            if (!user) return res.redirect('/')
+            if (!user) {
+                req.flash('error', 'ایمیل یا پسورد شما اشتباه است!')
+                return res.redirect('/login')
+            }
 
             return bcrypt.compare(password, user.password)
                 .then(isMatch => {

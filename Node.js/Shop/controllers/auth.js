@@ -1,6 +1,7 @@
 const parsCookies = require('../util/cookieparseer')
 const bcrypt = require('bcryptjs')
 const User = require('../models/users')
+const sendEmail = require('../util/email')
 
 exports.getLogin = (req, res) => {
     const isLoggedIn = parsCookies(req)
@@ -75,6 +76,7 @@ exports.postSignup = (req, res) => {
                 })
         })
         .then(() => {
+            sendEmail({ subject: 'hello', text: 'welcome!' })
             return res.redirect('/login')
         })
         .catch(err => {

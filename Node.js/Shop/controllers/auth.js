@@ -76,10 +76,17 @@ exports.postSignup = (req, res) => {
                 })
         })
         .then(() => {
-            sendEmail({ subject: 'hello', text: 'welcome!' })
+            sendEmail({ subject: 'hello', text: 'welcome!', userEmail: email })
             return res.redirect('/login')
         })
         .catch(err => {
             console.log(err)
         })
+}
+
+exports.getReset = (req, res) => {
+    res.render('auth/reset', {
+        path: '/reset',
+        pageTitle: 'Reset Password'
+    })
 }

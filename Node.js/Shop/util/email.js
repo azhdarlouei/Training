@@ -13,7 +13,7 @@ const sendEmail = (option) => {
 
     const mailOption = {
         from: 'arazhdarloo@gmail.com',
-        to: 'test@gmail.com',
+        to: option.userEmail,
         subject: option.subject,
         text: option.text
     }

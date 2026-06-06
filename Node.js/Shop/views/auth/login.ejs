@@ -9,6 +9,7 @@
             <h3 class="mb-5">ورود</h3>
 
             <form action="/login" method="post">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
               <div class="form-outline mb-4">
                 <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" placeholder="نام کاربری یا ایمیل خود را وارد کنید">

@@ -124,3 +124,23 @@ exports.postReset = (req, res) => {
             })
     })
 }
+
+exports.getResetPassword = (req, res) => {
+    const token = req.params.token
+
+    User.findOne({
+        resetToken: token,
+        expiredDateResetToken: { $gt: Date.now() }
+    })
+        .then(user => {
+            res.render('auth/new-password', {
+                path: '/new-password',
+                pageTitle: 'new Password',
+                userId: user._id.toString(),
+                passwordToken: token
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}

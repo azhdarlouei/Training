@@ -2,6 +2,7 @@ const parsCookies = require('../util/cookieparseer')
 const bcrypt = require('bcryptjs')
 const User = require('../models/users')
 const sendEmail = require('../util/email')
+const crypto = require('crypto')
 
 exports.getLogin = (req, res) => {
     const isLoggedIn = parsCookies(req)
@@ -88,5 +89,38 @@ exports.getReset = (req, res) => {
     res.render('auth/reset', {
         path: '/reset',
         pageTitle: 'Reset Password'
+    })
+}
+
+exports.postReset = (req, res) => {
+    crypto.randomBytes(32, (err, buff) => {
+        if (err) {
+            console.log(err)
+            return res.redirect('/reset')
+        }
+
+        const token = buff.toString('hex')
+
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                if (!user) return res.redirect('/reset')
+
+                user.resetToken = token
+                user.expiredDateResetToken = Date.now() + (3600000)
+
+                return user.save()
+            })
+            .then(result => {
+                sendEmail({
+                    userEmail: req.body.email,
+                    subject: 'بازیابی رمز عبور',
+                    text: `
+                        <p>درخواست بازیابی رمز عبور</p>
+                        <p>
+                            برای بازیابی رمز عبور <a href="http://localhost:3000/reset/${token}">کلیک کنید</a>
+                        </p>
+                    `
+                })
+            })
     })
 }

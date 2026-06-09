@@ -15,7 +15,7 @@ const sendEmail = (option) => {
         from: 'arazhdarloo@gmail.com',
         to: option.userEmail,
         subject: option.subject,
-        text: option.text
+        html: option.text
     }
 
     transport.sendMail(mailOption)

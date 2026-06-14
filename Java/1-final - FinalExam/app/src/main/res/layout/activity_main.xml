@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:padding="15dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            app:srcCompat="@drawable/avatar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Alireza Azhdarloo"
+            android:textSize="25sp"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/booksNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You have 10 books"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/showBTN"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="show books"
+            android:textSize="25sp"
+            android:layout_margin="40dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile {
+    width: 500px;
+    height: 310px;
+    text-align: center;
+    padding: 20px;
+    border: 3px #000 dashed;
+    border-radius: 15px;
+    background: #aafeff63;
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    background: #aafeff;
+    padding: 20px;
+    border-radius: 50%;
+}

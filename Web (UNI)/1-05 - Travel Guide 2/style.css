@@ -1,0 +1,73 @@
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background: #d0e4ff;
+}
+
+.navBar {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin-top: 40px;
+}
+
+.navBar li a {
+    color: #000;
+    text-decoration: none;
+    padding: 10px 25px 10px 25px;
+    background-color: #0000000f;
+    border-radius: 10px;
+}
+
+.navBar li a:hover {
+    background-color: #76767648;
+}
+
+.intro,
+.attractions,
+.food,
+.time,
+.transport,
+.travelDetail {
+    margin: 40px 15px 40px 15px;
+    text-align: center;
+    padding: 20px;
+    background: #85baffb1;
+}
+
+.intro h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.attractions ul,
+.food ul,
+.travelDetail {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #ffffff66;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.food>p {
+    color: #4a4a4a;
+}
+
+table,
+td,
+th {
+    border: 1px solid;
+    padding: 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table tr:first-child {
+    background: #7bffe7 !important;
+}

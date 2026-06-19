@@ -69,7 +69,7 @@ exports.postSignup = (req, res) => {
         return res.status(422).render('auth/signup', {
             path: '/signup',
             pageTitle: 'Sign Up',
-            errorMessage: 'لطفا ایمیل را به درستی وارد کنید'
+            errorMessage: errors.array()[0]
         })
     }
 

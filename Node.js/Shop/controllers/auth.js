@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/users')
 const sendEmail = require('../util/email')
 const crypto = require('crypto')
+const { validationResult } = require('express-validator')
 
 exports.getLogin = (req, res) => {
     const isLoggedIn = parsCookies(req)
@@ -61,6 +62,17 @@ exports.postSignup = (req, res) => {
     const password = req.body.password
     const confirmPassword = req.body.confirmPassword
 
+    const errors = validationResult(req)
+    console.log(errors)
+    if (!errors.isEmpty()) {
+        console.log(errors.array())
+        return res.status(422).render('auth/signup', {
+            path: '/signup',
+            pageTitle: 'Sign Up',
+            errorMessage: 'لطفا ایمیل را به درستی وارد کنید'
+        })
+    }
+
     User.findOne({ email: email })
         .then(userDoc => {
             if (userDoc) return res.redirect('/')
@@ -77,7 +89,7 @@ exports.postSignup = (req, res) => {
                 })
         })
         .then(() => {
-            sendEmail({ subject: 'hello', text: 'welcome!', userEmail: email })
+            // sendEmail({ subject: 'hello', text: 'welcome!', userEmail: email })
             return res.redirect('/login')
         })
         .catch(err => {

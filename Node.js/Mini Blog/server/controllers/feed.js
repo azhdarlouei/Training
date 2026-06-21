@@ -119,7 +119,7 @@ exports.updatePost = async (req, res) => {
         })
     }
 
-    if (imageUrl !== post.imageUrl) {
+    if (imageUrl !== post.imageUrl && imageUrl !== 'undefined') {
         clearImage(post.imageUrl)
     }
 

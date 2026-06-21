@@ -149,3 +149,24 @@ const clearImage = async (image) => {
     }
 
 }
+
+exports.deletePost = (req, res) => {
+    const postId = req.params.postId
+
+    Post.deleteOne({ _id: postId })
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({
+                    message: "post not found!"
+                })
+            }
+            return res.status(200).json({
+                message: "post deleted successfully!"
+            })
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message: "post delete failed!"
+            })
+        })
+}

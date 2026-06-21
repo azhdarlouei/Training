@@ -17,5 +17,6 @@ router.post('/signup', [
     body('password').trim().isLength({ min: 4 }),
     body('name').trim().isLength({ min: 4 }).notEmpty(),
 ], authController.signup)
+router.post('/login', authController.login)
 
 module.exports = router;

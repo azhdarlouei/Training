@@ -6,6 +6,7 @@ exports.getPost = (req, res, next) => {
     const posts = Post.find({})
         .then(posts => {
             return res.status(200).json({
+                message: 'Post fetched',
                 posts: posts
             })
         })
@@ -53,4 +54,22 @@ exports.createPost = (req, res, next) => {
         })
 
 
+}
+
+exports.getSinglePost = (req, res) => {
+    const postID = req.params.postId
+
+    Post.findById(postID)
+        .then(post => {
+            res.status(200).json({
+                message: 'Post fetched',
+                post: post
+            })
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message: 'Fetch post failed!',
+                error: err
+            })
+        })
 }

@@ -3,18 +3,17 @@ const { validationResult } = require('express-validator')
 const Post = require('../models/post')
 
 exports.getPost = (req, res, next) => {
-    res.status(200).json({
-        posts: [{
-            _id: '1',
-            title: 'First Post',
-            content: 'this is the first post',
-            imageUrl: 'images/pic.jpg',
-            creator: {
-                name: 'Alireza'
-            },
-            createdAt: new Date()
-        }]
-    })
+    const posts = Post.find({})
+        .then(posts => {
+            return res.status(200).json({
+                posts: posts
+            })
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message: "Fetching posts failed."
+            })
+        })
 }
 
 exports.createPost = (req, res, next) => {
@@ -41,13 +40,13 @@ exports.createPost = (req, res, next) => {
 
     post.save()
         .then(result => {
-            res.status(201).json({
+            return res.status(201).json({
                 message: "post created!",
                 post: result
             })
         })
         .catch(err => {
-            res.status(500).json({
+            return res.status(500).json({
                 message: 'Creating a post failed!',
                 error: err
             })

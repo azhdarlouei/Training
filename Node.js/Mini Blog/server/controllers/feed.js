@@ -26,6 +26,15 @@ exports.createPost = (req, res, next) => {
             errors: errors.array()
         })
     }
+    console.log(req.file)
+
+    if (!req.file) {
+        return res.status(422).json({
+            maessage: "Please upload a file",
+            errors: errors.array()
+        })
+    }
+
 
     const title = req.body.title
     const content = req.body.content
@@ -33,7 +42,7 @@ exports.createPost = (req, res, next) => {
     const post = new Post({
         title: title,
         content: content,
-        imageUrl: 'images/pic.jpg',
+        imageUrl: req.file.path,
         creator: {
             name: 'Alireza'
         },

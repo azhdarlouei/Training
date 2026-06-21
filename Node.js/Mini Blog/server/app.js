@@ -5,6 +5,7 @@ const path = require('path')
 const multer = require('multer')
 
 const feedRoutes = require('./routes/feed')
+const authRoutes = require('./routes/auth')
 
 const app = express()
 
@@ -45,6 +46,7 @@ app.use(multer({
 }).single('image'))
 
 app.use('/feed', feedRoutes)
+app.use('/auth', authRoutes)
 
 mongoose.connect('mongodb://127.0.0.1:27017/miniBlog')
     .then(result => {

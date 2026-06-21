@@ -109,8 +109,8 @@ class App extends Component {
   signupHandler = (event, authData) => {
     event.preventDefault();
     this.setState({ authLoading: true });
-    fetch('URL', {
-      method: 'PUT',
+    fetch('http://localhost:8080/auth/signup', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -185,8 +185,7 @@ class App extends Component {
         <Redirect to="/" />
       </Switch>
     );
-    // Todo: change it
-    if (!this.state.isAuth) {
+    if (this.state.isAuth) {
       routes = (
         <Switch>
           <Route

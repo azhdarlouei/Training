@@ -1,6 +1,9 @@
 const { validationResult } = require('express-validator')
+const path = require('path')
+const fs = require('fs')
 
 const Post = require('../models/post')
+const post = require('../models/post')
 
 exports.getPost = (req, res, next) => {
     const posts = Post.find({})
@@ -26,7 +29,6 @@ exports.createPost = (req, res, next) => {
             errors: errors.array()
         })
     }
-    console.log(req.file)
 
     if (!req.file) {
         return res.status(422).json({
@@ -81,4 +83,69 @@ exports.getSinglePost = (req, res) => {
                 error: err
             })
         })
+}
+
+exports.updatePost = async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(422).json({
+            maessage: "Validate failed, your entered data is invalid",
+            errors: errors.array()
+        })
+    }
+
+    const postId = req.params.postId
+
+    const title = req.body.title
+    const content = req.body.content
+    let imageUrl = req.body.image
+
+    if (req.file) {
+        imageUrl = req.file.path
+    }
+
+    if (!imageUrl) {
+        return res.status(422).json({
+            maessage: "Please upload a file",
+            errors: errors.array()
+        })
+    }
+
+    const post = await Post.findById(postId)
+
+    if (!post) {
+        return res.status(404).json({
+            message: 'post not found',
+        })
+    }
+
+    if (imageUrl !== post.imageUrl) {
+        clearImage(post.imageUrl)
+    }
+
+    post.title = title
+    post.content = content
+    post.imageUrl = imageUrl
+
+    await post.save()
+
+    return res.status(200).json({
+        message: "Post updated!",
+        post: post
+    })
+}
+
+const clearImage = async (image) => {
+    console.log(image)
+    const imagePath = path.join(__dirname, '..', image)
+
+    if (await fs.existsSync(imagePath)) {
+        await fs.unlinkSync(imagePath, (err) => {
+            throw err
+        })
+        console.log('image deleted successfully')
+    } else {
+        console.log('image not found')
+    }
+
 }

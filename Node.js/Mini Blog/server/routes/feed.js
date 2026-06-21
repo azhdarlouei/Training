@@ -15,5 +15,6 @@ router.post('/post', [
         .isLength({ min: 5 })
 ], feedController.createPost)
 router.get('/singlePost/:postId', feedController.getSinglePost)
+router.put('/post/:postId', feedController.updatePost)
 
 module.exports = router

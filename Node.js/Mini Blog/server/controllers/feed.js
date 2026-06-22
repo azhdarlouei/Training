@@ -71,23 +71,28 @@ exports.createPost = async (req, res, next) => {
     }
 }
 
-exports.getSinglePost = (req, res) => {
-    const postID = req.params.postId
+exports.getSinglePost = async (req, res, next) => {
+    const postId = req.params.postId;
 
-    Post.findById(postID)
-        .then(post => {
-            res.status(200).json({
-                message: 'Post fetched',
-                post: post
-            })
-        })
-        .catch(err => {
-            return res.status(500).json({
-                message: 'Fetch post failed!',
-                error: err
-            })
-        })
-}
+    try {
+        const post = await Post.findById(postId).populate('creator');
+        if (!post) {
+            return res.status(404).json({
+                message: 'Post not found!'
+            });
+        }
+
+        res.status(200).json({
+            message: 'Post fetched successfully',
+            post: post
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    }
+};
 
 exports.updatePost = async (req, res) => {
     const errors = validationResult(req)

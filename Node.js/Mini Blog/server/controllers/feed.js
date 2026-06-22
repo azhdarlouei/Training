@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require('fs')
 
 const Post = require('../models/post')
-const post = require('../models/post')
+const User = require('../models/user')
 
 exports.getPost = (req, res, next) => {
     const posts = Post.find({})
@@ -20,51 +20,55 @@ exports.getPost = (req, res, next) => {
         })
 }
 
-exports.createPost = (req, res, next) => {
-    const errors = validationResult(req)
+exports.createPost = async (req, res, next) => {
+    try {
+        const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-        return res.status(422).json({
-            maessage: "Validate failed, your entered data is invalid",
-            errors: errors.array()
-        })
-    }
+        if (!errors.isEmpty()) {
+            console.log(errors.array());
+            return res.status(422).json({
+                message: "Validation faild, your entered data is invalid",
+                errors: errors.array(),
+            });
+        }
 
-    if (!req.file) {
-        return res.status(422).json({
-            maessage: "Please upload a file",
-            errors: errors.array()
-        })
-    }
-
-
-    const title = req.body.title
-    const content = req.body.content
-
-    const post = new Post({
-        title: title,
-        content: content,
-        imageUrl: req.file.path,
-        creator: {
-            name: 'Alireza'
-        },
-    })
-
-    post.save()
-        .then(result => {
-            return res.status(201).json({
-                message: "post created!",
-                post: result
+        if (!req.file) {
+            return res.status(422).json({
+                message: "Please upload a file"
             })
-        })
-        .catch(err => {
+        }
+
+        const title = req.body.title;
+        const content = req.body.content;
+
+        const post = new Post({
+            title: title,
+            content: content,
+            imageUrl: req.file.path,
+            creator: req.userId,
+        });
+
+        const postResult = await post.save();
+        const user = await User.findById(req.userId);
+
+        user.posts.push(postResult);
+
+        const creator = await user.save();
+
+        res.status(201).json({
+            message: "Post Created Successfully",
+            post: postResult,
+            creator: creator
+        });
+    } catch (err) {
+        console.error("Create Post Error:", err)
+        if (!err.statusCode) {
             return res.status(500).json({
-                message: 'Creating a post failed!',
-                error: err
+                message: "Create post failed."
             })
-        })
-
-
+        }
+        next(err)
+    }
 }
 
 exports.getSinglePost = (req, res) => {

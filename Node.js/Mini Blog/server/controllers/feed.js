@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator')
 const path = require('path')
 const fs = require('fs')
+const mongoose = require('mongoose')
 
 const Post = require('../models/post')
 const User = require('../models/user')
@@ -159,23 +160,22 @@ const clearImage = async (image) => {
 
 }
 
-exports.deletePost = (req, res) => {
-    const postId = req.params.postId
+exports.deletePost = async (req, res, next) => {
+    const postId = req.params.postId;
 
-    Post.deleteOne({ _id: postId })
-        .then(post => {
-            if (!post) {
-                return res.status(404).json({
-                    message: "post not found!"
-                })
-            }
-            return res.status(200).json({
-                message: "post deleted successfully!"
-            })
-        })
-        .catch(err => {
-            return res.status(500).json({
-                message: "post delete failed!"
-            })
-        })
-}
+    try {
+        await Post.findByIdAndDelete(postId)
+
+        const user = await User.findById(req.userId)
+        if (user) {
+            user.posts.pull(postId)
+            await user.save()
+        }
+
+        res.status(200).json({ message: "Post deleted successfully!" })
+    } catch (err) {
+        console.error(err)
+        if (!err.statusCode) err.statusCode = 500
+        next(err)
+    }
+};

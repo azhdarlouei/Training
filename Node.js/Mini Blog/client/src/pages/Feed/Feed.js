@@ -1,4 +1,5 @@
 import { Component, Fragment } from 'react';
+import openSocket from 'socket.io-client';
 
 import Button from '../../components/Button/Button';
 import FeedEdit from '../../components/Feed/FeedEdit/FeedEdit';
@@ -74,6 +75,8 @@ class Feed extends Component {
         });
       })
       .catch(this.catchError);
+
+    const socket = openSocket('http://localhost:8080')
   };
 
   statusUpdateHandler = event => {

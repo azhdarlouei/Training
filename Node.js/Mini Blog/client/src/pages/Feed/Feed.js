@@ -37,6 +37,19 @@ class Feed extends Component {
     this.loadPosts();
   }
 
+  addPost = post => {
+    this.setState(prevState => {
+      const updatedPosts = [...prevState.posts]
+
+      updatedPosts.unshift(post)
+
+      return {
+        posts: updatedPosts,
+        totalPosts: prevState.totalPosts + 1
+      }
+    })
+  }
+
   loadPosts = direction => {
     if (direction) {
       this.setState({ postsLoading: true, posts: [] });
@@ -77,6 +90,12 @@ class Feed extends Component {
       .catch(this.catchError);
 
     const socket = openSocket('http://localhost:8080')
+    socket.on('post', (data) => {
+      if (data.action === 'create') {
+        console.log(data)
+        this.addPost(data.post)
+      }
+    })
   };
 
   statusUpdateHandler = event => {

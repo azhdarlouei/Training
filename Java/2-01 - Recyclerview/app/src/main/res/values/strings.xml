@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Recyclerview</string>
+    <string name="add_data">add data</string>
+    <string name="enter_text">enter text...</string>
+</resources>

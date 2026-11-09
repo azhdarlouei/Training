@@ -12,9 +12,11 @@ import java.util.ArrayList;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder> {
     private final ArrayList<Data> datas;
+    private OnItemClickListener listener;
 
-    public DataAdapter(ArrayList<Data> datas) {
+    public DataAdapter(ArrayList<Data> datas, OnItemClickListener listener) {
         this.datas = datas;
+        this.listener = listener;
     }
 
     public class DataViewHolder extends RecyclerView.ViewHolder{
@@ -39,6 +41,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     public void onBindViewHolder(@NonNull DataViewHolder holder, int position) {
         Data data = datas.get(position);
         holder.txt.setText(data.getData());
+        holder.itemView.setOnClickListener(v->{
+            listener.onItemClick(data);
+        });
     }
 
     @Override

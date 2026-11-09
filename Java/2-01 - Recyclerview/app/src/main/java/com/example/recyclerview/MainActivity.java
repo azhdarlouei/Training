@@ -2,6 +2,7 @@ package com.example.recyclerview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener {
     private ArrayList<Data> data;
     private DataAdapter adapter;
     private ActivityResultLauncher<Intent> addDataLauncher;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv = findViewById(R.id.rv);
 
         data = Data.dataList;
-        adapter = new DataAdapter(data);
+        adapter = new DataAdapter(data, this);
 
         rv.setLayoutManager(new LinearLayoutManager(this));
 
@@ -54,5 +55,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(Data data) {
+        Toast.makeText(this, data.getData(), Toast.LENGTH_SHORT).show();
     }
 }

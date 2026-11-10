@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="click me!" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+        <EditText
+            android:id="@+id/nameText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="name" />
+        <Button
+            android:id="@+id/changeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="change name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+        <EditText
+            android:id="@+id/sumFirstNumber"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="first number" />
+        <EditText
+            android:id="@+id/sumSecoundNumber"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="secound number" />
+        <Button
+            android:id="@+id/calc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="calc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="user name" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="password" />
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="login" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+        <Button
+            android:id="@+id/changeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="change status" />
+    </LinearLayout>
+</LinearLayout>
